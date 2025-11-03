@@ -11,6 +11,8 @@ export async function scheduleNew({ id, name, when }) {
       body: JSON.stringify({ id, name, when }),
     })
 
+    console.log(typeof id, id)
+
     // Exibe mensagem de agendamento realizado.
     alert('Agendamento realizado com sucesso.')
   } catch (error) {
