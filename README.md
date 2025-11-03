@@ -26,22 +26,6 @@ O sistema foi desenvolvido com foco em **organização, interatividade e integra
 
 ---
 
-## 🧩 Arquitetura do Projeto
-
-O projeto foi estruturado com **módulos JavaScript** (`import/export`) para garantir organização e escalabilidade:
-
-src/
-├── assets/ # Ícones e imagens do sistema
-├── js/
-│ ├── components/ # Renderização e controle da interface
-│ ├── form/ # Manipulação do formulário e seleção de horários
-│ ├── services/ # Comunicação com a API (fetch / JSON Server)
-│ ├── utils/ # Funções auxiliares (como horários de abertura)
-│ └── index.js # Ponto de entrada principal
-└── server.json # Banco de dados simulado com JSON Server
-
----
-
 ## ⚙️ Tecnologias Utilizadas
 
 ### **Frontend**
