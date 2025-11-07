@@ -80,7 +80,150 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var dayj
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _libs_dayjs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./libs/dayjs.js */ \"./src/libs/dayjs.js\");\n/* harmony import */ var _styles_global_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./styles/global.css */ \"./src/styles/global.css\");\n/* harmony import */ var _styles_form_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./styles/form.css */ \"./src/styles/form.css\");\n/* harmony import */ var _styles_schedule_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./styles/schedule.css */ \"./src/styles/schedule.css\");\n\n\n//Configurações do dayjs\n\n\n// CSS\n\n\n\n\n//# sourceURL=webpack://projeto-hairday/./src/main.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _libs_dayjs_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./libs/dayjs.js */ \"./src/libs/dayjs.js\");\n/* harmony import */ var _styles_global_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./styles/global.css */ \"./src/styles/global.css\");\n/* harmony import */ var _styles_form_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./styles/form.css */ \"./src/styles/form.css\");\n/* harmony import */ var _styles_schedule_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./styles/schedule.css */ \"./src/styles/schedule.css\");\n/* harmony import */ var _modules_form_submit_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/form/submit.js */ \"./src/modules/form/submit.js\");\n/* harmony import */ var _modules_form_date_change_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/form/date-change.js */ \"./src/modules/form/date-change.js\");\n/* harmony import */ var _modules_schedules_cancel_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/schedules/cancel.js */ \"./src/modules/schedules/cancel.js\");\n/* harmony import */ var _modules_page_load_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/page-load.js */ \"./src/modules/page-load.js\");\n\n\n//Configurações do dayjs\n\n\n// CSS\n\n\n\n\n// JS\n\n\n\n\n\n//# sourceURL=webpack://projeto-hairday/./src/main.js?");
+
+/***/ }),
+
+/***/ "./src/modules/form/date-change.js":
+/*!*****************************************!*\
+  !*** ./src/modules/form/date-change.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _schedules_load_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../schedules/load.js */ \"./src/modules/schedules/load.js\");\n\n\n// Seleciona o input de data\nconst selectedDate = document.getElementById('date');\n\n// Recarrega a lista de horários quando o input de data mudar.\nselectedDate.onchange = () => (0,_schedules_load_js__WEBPACK_IMPORTED_MODULE_0__.schedulesDay)();\n\n//# sourceURL=webpack://projeto-hairday/./src/modules/form/date-change.js?");
+
+/***/ }),
+
+/***/ "./src/modules/form/hours-click.js":
+/*!*****************************************!*\
+  !*** ./src/modules/form/hours-click.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   hoursClick: () => (/* binding */ hoursClick)\n/* harmony export */ });\nfunction hoursClick() {\n  const hours = document.querySelectorAll('.hour-available');\n  hours.forEach(available => {\n    available.addEventListener('click', selected => {\n      //Remove a classe hour-selected de todas as li não selecionadas.\n      hours.forEach(hour => {\n        hour.classList.remove('hour-selected');\n      });\n\n      // Adiciona a classe hour-selected na li clicada.\n      selected.target.classList.add('hour-selected');\n    });\n  });\n}\n\n//# sourceURL=webpack://projeto-hairday/./src/modules/form/hours-click.js?");
+
+/***/ }),
+
+/***/ "./src/modules/form/hours-load.js":
+/*!****************************************!*\
+  !*** ./src/modules/form/hours-load.js ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   hoursLoad: () => (/* binding */ hoursLoad)\n/* harmony export */ });\n/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! dayjs */ \"./node_modules/dayjs/dayjs.min.js\");\n/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(dayjs__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _utils_opening_hours_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/opening-hours.js */ \"./src/utils/opening-hours.js\");\n/* harmony import */ var _hours_click_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./hours-click.js */ \"./src/modules/form/hours-click.js\");\n\n\n\nconst hours = document.getElementById('hours');\nfunction hoursLoad({\n  date,\n  dailySchedules\n}) {\n  // Limpa a lista de horários.\n  hours.innerHTML = '';\n\n  // Obtéma a lista de horários ocupados.\n  const unavailableHours = dailySchedules.map(schedule => dayjs__WEBPACK_IMPORTED_MODULE_0___default()(schedule.when).format('HH:mm'));\n  const opening = _utils_opening_hours_js__WEBPACK_IMPORTED_MODULE_1__.openingHours.map(hour => {\n    // Recupera somente a hora.\n    const [scheduleHour] = hour.split(':');\n\n    // Adiciona a hora na date e verificar se está no passado.\n    const isHourPast = dayjs__WEBPACK_IMPORTED_MODULE_0___default()(date).add(scheduleHour, 'hour').isBefore(dayjs__WEBPACK_IMPORTED_MODULE_0___default()());\n    const available = !unavailableHours.includes(hour) && !isHourPast;\n\n    // Define se o horários está disponível.\n    return {\n      hour,\n      available\n    };\n  });\n\n  // Renderiza os horários.\n  opening.forEach(({\n    hour,\n    available\n  }) => {\n    const li = document.createElement('li');\n    li.classList.add('hour');\n    li.classList.add(available ? 'hour-available' : 'hour-unavailable');\n    li.textContent = hour;\n    if (hour === '9:00') {\n      hourHeaderAdd('Manhã');\n    } else if (hour === '13:00') {\n      hourHeaderAdd('Tarde');\n    } else if (hour === '18:00') {\n      hourHeaderAdd('Noite');\n    }\n    hours.append(li);\n  });\n\n  // Adciona o evento de click nos horários disponíveis.\n  (0,_hours_click_js__WEBPACK_IMPORTED_MODULE_2__.hoursClick)();\n}\nfunction hourHeaderAdd(title) {\n  const header = document.createElement('li');\n  header.classList.add('hour-period');\n  header.textContent = title;\n  hours.append(header);\n}\n\n//# sourceURL=webpack://projeto-hairday/./src/modules/form/hours-load.js?");
+
+/***/ }),
+
+/***/ "./src/modules/form/submit.js":
+/*!************************************!*\
+  !*** ./src/modules/form/submit.js ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! dayjs */ \"./node_modules/dayjs/dayjs.min.js\");\n/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(dayjs__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _services_schedule_new_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/schedule-new.js */ \"./src/services/schedule-new.js\");\n/* harmony import */ var _schedules_load_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../schedules/load.js */ \"./src/modules/schedules/load.js\");\n\n\n\nconst form = document.querySelector('form');\nconst clientName = document.getElementById('client');\nconst selectedDate = document.getElementById('date');\n\n// Data atual para formatar o input\nconst inputToday = dayjs__WEBPACK_IMPORTED_MODULE_0___default()(new Date()).format('YYYY-MM-DD');\n\n// Carrega data atual e define a data mínima como sendo a data atual.\nselectedDate.value = inputToday;\nselectedDate.min = inputToday;\nform.onsubmit = async event => {\n  //previne o comportamento padrão de carregar a página.\n  event.preventDefault();\n  try {\n    // Recuperando o nome do cliente.\n    const name = clientName.value.trim();\n\n    // Previne que não haja nome definido.\n    if (!name) {\n      return alert('informe o nome do cliente');\n    }\n\n    // Recupera o horário selecionado.\n    const hourSelected = document.querySelector('.hour-selected');\n\n    // Previne que o horário não seja selecionado.\n    if (!hourSelected) {\n      return alert('Selecione a hora.');\n    }\n\n    // Recupera somente a hora.\n    const [hour] = hourSelected.innerText.split(':');\n\n    // Insere a hora na data.\n    const when = dayjs__WEBPACK_IMPORTED_MODULE_0___default()(selectedDate.value).add(hour, 'hour');\n\n    // Gera um ID\n    const id = new Date().getTime();\n\n    // faz o agendamento.\n    await (0,_services_schedule_new_js__WEBPACK_IMPORTED_MODULE_1__.scheduleNew)({\n      id,\n      name,\n      when\n    });\n\n    // Recarrega o agendamento.\n    await (0,_schedules_load_js__WEBPACK_IMPORTED_MODULE_2__.schedulesDay)();\n\n    // Limpa o input do nome do cliente.\n    clientName.value = '';\n  } catch (error) {\n    alert('Não foi possível realizar o agendamento');\n    console.log(error);\n  }\n};\n\n//# sourceURL=webpack://projeto-hairday/./src/modules/form/submit.js?");
+
+/***/ }),
+
+/***/ "./src/modules/page-load.js":
+/*!**********************************!*\
+  !*** ./src/modules/page-load.js ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _schedules_load_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./schedules/load.js */ \"./src/modules/schedules/load.js\");\n// Arquivo para capturar o evento de quandoa  tela terminar de carregar os elementos e exibir os horários.\n\n\ndocument.addEventListener('DOMContentLoaded', function () {\n  (0,_schedules_load_js__WEBPACK_IMPORTED_MODULE_0__.schedulesDay)();\n});\n\n//# sourceURL=webpack://projeto-hairday/./src/modules/page-load.js?");
+
+/***/ }),
+
+/***/ "./src/modules/schedules/cancel.js":
+/*!*****************************************!*\
+  !*** ./src/modules/schedules/cancel.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _load_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./load.js */ \"./src/modules/schedules/load.js\");\n/* harmony import */ var _services_schedule_cancel_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/schedule-cancel.js */ \"./src/services/schedule-cancel.js\");\n\n\nconst periods = document.querySelectorAll('.period');\n\n// Gera evento de click para cada lista (manhã, tarde, noite)\nperiods.forEach(period => {\n  // Captura o evento de clique na lista.\n  period.addEventListener('click', async event => {\n    if (event.target.classList.contains('cancel-icon')) {\n      // Obtém a li pai do elemento clicado.\n      const item = event.target.closest('li');\n\n      // Pega o id do agendamento para remover.\n      const {\n        id\n      } = item.dataset;\n\n      // Confirma que o id foi selecionado.\n      if (id) {\n        // Confrma se o usuário quer cancelar.\n        const isConfirm = confirm('Tem certeza que deseja cancelar o agendamento?');\n        if (isConfirm) {\n          // Faz a requisição na API para cancelar.\n          await (0,_services_schedule_cancel_js__WEBPACK_IMPORTED_MODULE_1__.scheduleCancel)({\n            id\n          });\n          // Recarrega os agendamentos.\n          (0,_load_js__WEBPACK_IMPORTED_MODULE_0__.schedulesDay)();\n        }\n      }\n    }\n  });\n});\n\n//# sourceURL=webpack://projeto-hairday/./src/modules/schedules/cancel.js?");
+
+/***/ }),
+
+/***/ "./src/modules/schedules/load.js":
+/*!***************************************!*\
+  !*** ./src/modules/schedules/load.js ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   schedulesDay: () => (/* binding */ schedulesDay)\n/* harmony export */ });\n/* harmony import */ var _services_schedule_fatch_by_day_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../services/schedule-fatch-by-day.js */ \"./src/services/schedule-fatch-by-day.js\");\n/* harmony import */ var _schedules_show_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../schedules/show.js */ \"./src/modules/schedules/show.js\");\n/* harmony import */ var _form_hours_load_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../form/hours-load.js */ \"./src/modules/form/hours-load.js\");\n\n\n\n\n// Seleciona o input de data\nconst selectedDate = document.getElementById('date');\nasync function schedulesDay() {\n  // Obtém a data do input\n  const date = selectedDate.value;\n\n  // Busca na API os agendamentos.\n  const dailySchedules = await (0,_services_schedule_fatch_by_day_js__WEBPACK_IMPORTED_MODULE_0__.scheduleFetchByDay)({\n    date\n  });\n\n  // Exibe os agendamentos.\n  (0,_schedules_show_js__WEBPACK_IMPORTED_MODULE_1__.schedulesShow)({\n    dailySchedules\n  });\n\n  // Renderiza as horas disponíveis.\n  (0,_form_hours_load_js__WEBPACK_IMPORTED_MODULE_2__.hoursLoad)({\n    date,\n    dailySchedules\n  });\n}\n\n//# sourceURL=webpack://projeto-hairday/./src/modules/schedules/load.js?");
+
+/***/ }),
+
+/***/ "./src/modules/schedules/show.js":
+/*!***************************************!*\
+  !*** ./src/modules/schedules/show.js ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   schedulesShow: () => (/* binding */ schedulesShow)\n/* harmony export */ });\n/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! dayjs */ \"./node_modules/dayjs/dayjs.min.js\");\n/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(dayjs__WEBPACK_IMPORTED_MODULE_0__);\n\n\n// Seleciona as sessões manhã, tarde e noite.\nconst periodMorning = document.getElementById('period-morning');\nconst periodAfternoon = document.getElementById('period-afternoon');\nconst periodNight = document.getElementById('period-night');\nfunction schedulesShow({\n  dailySchedules\n}) {\n  try {\n    // Limpa as listas.\n    periodMorning.innerHTML = '';\n    periodAfternoon.innerHTML = '';\n    periodNight.innerHTML = '';\n\n    // Renderiza os agendamentos por período\n    dailySchedules.forEach(schedules => {\n      const item = document.createElement('li');\n      const time = document.createElement('strong');\n      const name = document.createElement('span');\n\n      // Adiciona o id do agendamento.\n      item.setAttribute('data-id', schedules.id);\n      time.textContent = dayjs__WEBPACK_IMPORTED_MODULE_0___default()(schedules.when).format('HH:mm');\n      name.textContent = schedules.name;\n\n      // Cria ícone de cancelar o agendamento.\n      const cancelIcon = document.createElement('img');\n      cancelIcon.classList.add('cancel-icon');\n      cancelIcon.setAttribute('src', './src/assets/cancel.svg');\n      cancelIcon.setAttribute('alt', 'Cancelar');\n\n      // Adiciona o tempo, nome e ícone no item.\n      item.append(time, name, cancelIcon);\n\n      // Obtém somente a hora.\n      const hour = dayjs__WEBPACK_IMPORTED_MODULE_0___default()(schedules.when).hour();\n\n      // Renderiza o agendamento na sessão (manhã, tarde, noite).\n      if (hour <= 12) {\n        periodMorning.appendChild(item);\n      } else if (hour > 12 && hour < 18) {\n        periodAfternoon.appendChild(item);\n      } else {\n        periodNight.appendChild(item);\n      }\n    });\n  } catch (error) {\n    alert('Não foi possível exibir os agendamentos');\n    console.log(error);\n  }\n}\n\n//# sourceURL=webpack://projeto-hairday/./src/modules/schedules/show.js?");
+
+/***/ }),
+
+/***/ "./src/services/api-config.js":
+/*!************************************!*\
+  !*** ./src/services/api-config.js ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   apiConfig: () => (/* binding */ apiConfig)\n/* harmony export */ });\nconst apiConfig = {\n  baseURL: 'http://localhost:3333'\n};\n\n//# sourceURL=webpack://projeto-hairday/./src/services/api-config.js?");
+
+/***/ }),
+
+/***/ "./src/services/schedule-cancel.js":
+/*!*****************************************!*\
+  !*** ./src/services/schedule-cancel.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   scheduleCancel: () => (/* binding */ scheduleCancel)\n/* harmony export */ });\n/* harmony import */ var _api_config_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./api-config.js */ \"./src/services/api-config.js\");\n\nasync function scheduleCancel({\n  id\n}) {\n  try {\n    await fetch(`${_api_config_js__WEBPACK_IMPORTED_MODULE_0__.apiConfig.baseURL}/schedules/${id}`, {\n      method: 'DELETE'\n    });\n    alert('Agendamento cancelado com sucesso.');\n  } catch (error) {\n    console.log(error);\n    alert('Não foi possível cancelar o agendamento');\n  }\n}\n\n//# sourceURL=webpack://projeto-hairday/./src/services/schedule-cancel.js?");
+
+/***/ }),
+
+/***/ "./src/services/schedule-fatch-by-day.js":
+/*!***********************************************!*\
+  !*** ./src/services/schedule-fatch-by-day.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   scheduleFetchByDay: () => (/* binding */ scheduleFetchByDay)\n/* harmony export */ });\n/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! dayjs */ \"./node_modules/dayjs/dayjs.min.js\");\n/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(dayjs__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _api_config_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./api-config.js */ \"./src/services/api-config.js\");\n\n\nasync function scheduleFetchByDay({\n  date\n}) {\n  try {\n    // Fazendo a requisição.\n    const response = await fetch(`${_api_config_js__WEBPACK_IMPORTED_MODULE_1__.apiConfig.baseURL}/schedules`);\n\n    // Converte para JSON.\n    const data = await response.json();\n\n    // Filtra os agendamentos pelo dia selecionado.\n    const dailySchedules = data.filter(schedule => dayjs__WEBPACK_IMPORTED_MODULE_0___default()(date).isSame(schedule.when, 'day'));\n    return dailySchedules;\n  } catch (error) {\n    console.log(error);\n    alert('Não foi possível buscar os agendamentos do dia selecionado.');\n  }\n}\n\n//# sourceURL=webpack://projeto-hairday/./src/services/schedule-fatch-by-day.js?");
+
+/***/ }),
+
+/***/ "./src/services/schedule-new.js":
+/*!**************************************!*\
+  !*** ./src/services/schedule-new.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   scheduleNew: () => (/* binding */ scheduleNew)\n/* harmony export */ });\n/* harmony import */ var _api_config_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./api-config.js */ \"./src/services/api-config.js\");\n\nasync function scheduleNew({\n  id,\n  name,\n  when\n}) {\n  try {\n    // Faz a requisição para enviar os dados do agendamento.\n    await fetch(`${_api_config_js__WEBPACK_IMPORTED_MODULE_0__.apiConfig.baseURL}/schedules`, {\n      method: 'POST',\n      headers: {\n        'Content-Type': 'application/json'\n      },\n      body: JSON.stringify({\n        id,\n        name,\n        when\n      })\n    });\n    console.log(typeof id, id);\n\n    // Exibe mensagem de agendamento realizado.\n    alert('Agendamento realizado com sucesso.');\n  } catch (error) {\n    console.log(error);\n    alert('Não foi possível agendar. Tente novamente mais tarde.');\n  }\n}\n\n//# sourceURL=webpack://projeto-hairday/./src/services/schedule-new.js?");
+
+/***/ }),
+
+/***/ "./src/utils/opening-hours.js":
+/*!************************************!*\
+  !*** ./src/utils/opening-hours.js ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   openingHours: () => (/* binding */ openingHours)\n/* harmony export */ });\nconst openingHours = ['9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00'];\n\n//# sourceURL=webpack://projeto-hairday/./src/utils/opening-hours.js?");
 
 /***/ }),
 
