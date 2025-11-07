@@ -1,7 +1,10 @@
 import { apiConfig } from './api-config.js'
 
-export async function scheduleNew({ id, name, when }) {
+export async function scheduleNew({ name, when }) {
   try {
+    // Gera um id seguro com o prefixo 'id-' para evitar a conversão automática.
+    const id = `id-${Date.now()}`
+
     // Faz a requisição para enviar os dados do agendamento.
     await fetch(`${apiConfig.baseURL}/schedules`, {
       method: 'POST',
